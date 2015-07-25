@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="no"?>
+<!DOCTYPE focus-model [
+ ]>
+
+<!--Demonstration application for shopping and shipping restrictions added-->
+<focus-model manual="true" inputOutput="false" negativeValuesEnabled="true">
+  <attribute name="ItemStockStatus" type="BOOLEAN" iotype="NEITHER" dependencies="false" description="Combines two concepts: whether an item is valid, and whether a valid item is in stock.">
+    <value name="true" negative_value="false"/>
+    <value name="false" negative_value="false"/>
+  </attribute>
+  <attribute name="ItemIsExportControlled" type="BOOLEAN" iotype="NEITHER" dependencies="false" description="True if item is subject to export regulations">
+    <value name="true" negative_value="false"/>
+    <value name="false" negative_value="false"/>
+  </attribute>
+  <attribute name="OrderShippingDestination" type="BOOLEAN" iotype="NEITHER" dependencies="false" description="Whether the item is shipping to a foreign country. Using a string instead of a boolean because I expect the values will change.">
+    <value name="true" negative_value="false"/>
+    <value name="false" negative_value="false"/>
+  </attribute>
+  <attribute name="OrderPricingScheme" type="BOOLEAN" iotype="NEITHER" dependencies="false" description="Which pricing scheme is used for this order.">
+    <value name="true" negative_value="false"/>
+    <value name="false" negative_value="false"/>
+  </attribute>
+  <attribute name="OrderDeliveryTimeframe" type="BOOLEAN" iotype="NEITHER" dependencies="false" description="What is the desired delivery timeframe?">
+    <value name="true" negative_value="false"/>
+    <value name="false" negative_value="false"/>
+  </attribute>
+  <attribute name="OrderShipping" type="BOOLEAN" iotype="NEITHER" dependencies="false" description="User's selection for means of shipping.">
+    <value name="true" negative_value="false"/>
+    <value name="false" negative_value="false"/>
+  </attribute>
+  <attribute name="CustomerCreditStatus" type="BOOLEAN" iotype="NEITHER" dependencies="false" description="Result of customer credit check.">
+    <value name="true" negative_value="false"/>
+    <value name="false" negative_value="false"/>
+  </attribute>
+  <restriction name="01 Mar 12 08:02:38 0" type="NotAllowed" expression="OrderDeliveryTimeframe.equals(&#34;true&#34;) &#38;&#38; OrderShipping.equals(&#34;true&#34;)"/>
+  <restriction name="01 Mar 12 08:02:46 0" type="NotAllowed" expression="OrderDeliveryTimeframe.equals(&#34;true&#34;) &#38;&#38; OrderShipping.equals(&#34;true&#34;)"/>
+  <restriction name="01 Mar 12 08:02:53 0" type="NotAllowed" expression="OrderDeliveryTimeframe.equals(&#34;false&#34;) &#38;&#38; OrderShipping.equals(&#34;false&#34;)"/>
+  <restriction name="01 Mar 12 08:03:01 0" type="NotAllowed" expression="OrderDeliveryTimeframe.equals(&#34;true&#34;) &#38;&#38; OrderShipping.equals(&#34;true&#34;)"/>
+</focus-model>

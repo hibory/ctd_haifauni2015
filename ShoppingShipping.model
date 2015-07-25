@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="no"?>
+<!DOCTYPE focus-model [
+ ]>
+
+<!--Demonstration application for shopping and shipping restrictions added-->
+<focus-model manual="true" inputOutput="false" negativeValuesEnabled="true">
+  <attribute name="ItemStockStatus" type="STRING" iotype="NEITHER" dependencies="false" description="Combines two concepts: whether an item is valid, and whether a valid item is in stock.">
+    <value name="validInStock" description="A valid item that is in stock" negative_value="false"/>
+    <value name="validOutOfStock" description="A valid item that is not in stock." negative_value="false"/>
+    <value name="invalid" description="Item is not valid." negative_value="true"/>
+  </attribute>
+  <attribute name="ItemIsExportControlled" type="BOOLEAN" iotype="NEITHER" dependencies="false" description="True if item is subject to export regulations">
+    <value name="true" negative_value="false"/>
+    <value name="false" negative_value="false"/>
+  </attribute>
+  <attribute name="OrderShippingDestination" type="STRING" iotype="NEITHER" dependencies="false" description="Whether the item is shipping to a foreign country. Using a string instead of a boolean because I expect the values will change.">
+    <value name="domestic" description="The order is shipping domestically." negative_value="false"/>
+    <value name="foreign" description="The order is shipping to another country" negative_value="false"/>
+  </attribute>
+  <attribute name="OrderPricingScheme" type="STRING" iotype="NEITHER" dependencies="false" description="Which pricing scheme is used for this order.">
+    <value name="scheme1" description="Use pricing scheme 1." negative_value="false"/>
+    <value name="scheme2" description="Use pricing scheme 2." negative_value="false"/>
+    <value name="scheme3" description="Use pricing scheme 3." negative_value="false"/>
+  </attribute>
+  <attribute name="OrderDeliveryTimeframe" type="STRING" iotype="NEITHER" dependencies="false" description="What is the desired delivery timeframe?">
+    <value name="immediate" description="Expedited delivery." negative_value="false"/>
+    <value name="oneWeek" description="Delivery within one week." negative_value="false"/>
+    <value name="oneMonth" description="Delivery within one month." negative_value="false"/>
+  </attribute>
+  <attribute name="OrderShipping" type="STRING" iotype="NEITHER" dependencies="false" description="User's selection for means of shipping.">
+    <value name="ground" description="Ship by a ground carrier." negative_value="false"/>
+    <value name="sea" description="Ship by sea carrier." negative_value="false"/>
+    <value name="air" description="Ship by air carrier." negative_value="false"/>
+  </attribute>
+  <attribute name="CustomerCreditStatus" type="STRING" iotype="NEITHER" dependencies="false" description="Result of customer credit check.">
+    <value name="approved" description="Purchase payment was approved." negative_value="false"/>
+    <value name="denied" description="Purchase payment was denied." negative_value="true"/>
+    <value name="unknown" description="Error in payment validation is treated as denial." negative_value="true"/>
+  </attribute>
+  <restriction name="01 Mar 12 08:02:38 0" type="NotAllowed" expression="OrderDeliveryTimeframe.equals(&#34;immediate&#34;) &#38;&#38; OrderShipping.equals(&#34;sea&#34;)"/>
+  <restriction name="01 Mar 12 08:02:46 0" type="NotAllowed" expression="OrderDeliveryTimeframe.equals(&#34;immediate&#34;) &#38;&#38; OrderShipping.equals(&#34;ground&#34;)"/>
+  <restriction name="01 Mar 12 08:02:53 0" type="NotAllowed" expression="OrderDeliveryTimeframe.equals(&#34;oneWeek&#34;) &#38;&#38; OrderShipping.equals(&#34;sea&#34;)"/>
+  <restriction name="01 Mar 12 08:03:01 0" type="NotAllowed" expression="OrderDeliveryTimeframe.equals(&#34;oneMonth&#34;) &#38;&#38; OrderShipping.equals(&#34;air&#34;)"/>
+</focus-model>
